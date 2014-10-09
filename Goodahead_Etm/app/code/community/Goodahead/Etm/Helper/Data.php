@@ -299,4 +299,14 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
         return $options;
     }
 
+    /**
+     * Get the fields for entity type entity edit form
+     *
+     * @return array
+     */
+    public function getEntityTypeEditFields()
+    {
+        return array_keys(Mage::getConfig()->getNode('default/goodahead_etm/entity_type_fields')->asArray());
+    }
+
 }
