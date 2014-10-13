@@ -61,9 +61,11 @@
     </adminhtml_etm_entity_grid>
     <adminhtml_etm_entity_edit>
         <update handle="editor" />
-
-        <reference name="content">
+        <reference name="left">
             <block type="adminhtml/store_switcher" name="store_switcher" before="-"></block>
+            <block type="goodahead_etm/adminhtml_entity_edit_tabs" name="entity_type_tabs"></block>
+        </reference>
+        <reference name="content">
             <block type="goodahead_etm/adminhtml_entity_edit" name="etm.entity.form_container" />
         </reference>
     </adminhtml_etm_entity_edit>
