@@ -118,13 +118,14 @@ class Goodahead_Etm_Adminhtml_Etm_EntityController
         $entityId = $this->getRequest()->getParam('entity_id', null);
 
         $entityType = $this->_initEntityType();
+        $storeId = $this->getRequest()->getParam('store', 0);
+        $entity = $this->_initEntity($storeId);
+
         $this->_initAction($this->__(
             $entityId ? 'Edit %s' : 'Create %s',
             $this->getEtmHelper()->escapeHtml($entityType->getEntityTypeName())
         ));
 
-        $storeId = $this->getRequest()->getParam('store', 0);
-        $entity = $this->_initEntity($storeId);
         if (!$entity->getId()) {
             $this->getLayout()->getBlock('content')->unsetChild('store_switcher');
         }

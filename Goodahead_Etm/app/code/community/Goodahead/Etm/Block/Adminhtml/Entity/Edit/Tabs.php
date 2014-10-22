@@ -29,11 +29,7 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Edit_Tabs extends Mage_Adminhtml_Bloc
 
     protected function _prepareLayout()
     {
-        $entity = Mage::registry('etm_entity');
         $this->addTab('general', 'goodahead_etm/adminhtml_entity_edit_tab_main');
-
-        Mage::dispatchEvent('goodahead_etm_adminhtml_entity_edit_tabs', array('tabs' => $this, 'entity' => $entity));
-
         return parent::_prepareLayout();
     }
 }
