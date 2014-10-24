@@ -64,7 +64,7 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Edit_Tab_Main
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             $attribute->unsIsVisible();
-            if ($attribute->isSystem()) {
+            if ($attribute->isReadonly()) {
                 $attribute->setIsVisible(0);
             }
         }

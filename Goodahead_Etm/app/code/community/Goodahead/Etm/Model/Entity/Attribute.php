@@ -97,6 +97,11 @@ class Goodahead_Etm_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribu
         return $this->getIsUserDefined() == 0;
     }
 
+    public function isReadonly()
+    {
+        return $this->getIsUserDefined() == 0 && $this->getIsRequired() == 0;
+    }
+
     /**
      * Delete attributes with given ids
      *
