@@ -152,6 +152,26 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get path to image folder for given entity
+     *
+     * @param Goodahead_Etm_Model_Entity $object
+     * @param string $attributeCode
+     * @return string
+     */
+    public function getImageFolderPath(Goodahead_Etm_Model_Entity $object, $attributeCode)
+    {
+        $path = Mage::getBaseDir('media') .
+            DS . 'goodahead' .
+            DS . 'etm' .
+            DS . 'images' .
+            DS . $object->getEntityTypeInstance()->getEntityTypeCode() .
+            DS . $attributeCode .
+            DS
+        ;
+        return $path;
+    }
+
+    /**
      * @param int $entityTypeId
      * @return string|null
      */

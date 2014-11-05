@@ -49,14 +49,7 @@ class Goodahead_Etm_Model_Entity_Attribute_Backend_Image
             return $this;
         }
 
-        $path = Mage::getBaseDir('media') .
-            DS . 'goodahead' .
-            DS . 'etm' .
-            DS . 'images' .
-            DS . $object->getEntityTypeInstance()->getEntityTypeCode() .
-            DS . $this->getAttribute()->getAttributeCode() .
-            DS
-        ;
+        $path = Mage::helper('goodahead_etm')->getImageFolderPath($object, $this->getAttribute()->getAttributeCode());
 
         try {
             $uploader = new Varien_File_Uploader($this->getAttribute()->getName());
