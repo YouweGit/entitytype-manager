@@ -70,4 +70,9 @@ class Goodahead_Etm_Model_Entity_Attribute_Backend_Image
         }
         return $this;
     }
+
+    public function validate($object)
+    {
+        return parent::validate($object);
+    }
 }

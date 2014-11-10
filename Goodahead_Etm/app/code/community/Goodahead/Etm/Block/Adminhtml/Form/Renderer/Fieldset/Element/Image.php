@@ -56,7 +56,7 @@ class Goodahead_Etm_Block_Adminhtml_Form_Renderer_Fieldset_Element_Image
     {
         $url = false;
         if ($this->getValue()) {
-            $url = sprintf('%sgoodahead/etm/images/%s/%s/%s',
+            $url = sprintf('%sgoodahead/etm/%s/%s/%s',
                 Mage::getBaseUrl('media'),
                 $this->getEntityType()->getEntityTypeCode(),
                 $this->getEntityAttribute()->getAttributeCode(),

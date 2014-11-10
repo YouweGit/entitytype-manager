@@ -163,7 +163,6 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
         $path = Mage::getBaseDir('media') .
             DS . 'goodahead' .
             DS . 'etm' .
-            DS . 'images' .
             DS . $object->getEntityTypeInstance()->getEntityTypeCode() .
             DS . $attributeCode .
             DS
