@@ -243,6 +243,16 @@
                 <entity_type_content/>
                 <default_attribute_id/>
             </entity_type_fields>
+            <adminhtml>
+                <grid>
+                    <exclude_types>
+                        <image/>
+                        <media_image/>
+                        <textarea/>
+                    </exclude_types>
+                </grid>
+            </adminhtml>
         </goodahead_etm>
+
     </default>
 </config>

@@ -328,4 +328,14 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
         return array_keys(Mage::getConfig()->getNode('default/goodahead_etm/entity_type_fields')->asArray());
     }
 
+    /**
+     * Get the field types that shouldn't be displayed on grid
+     *
+     * @return array
+     */
+    public function getGridExcludeTypes()
+    {
+        return array_keys(Mage::getConfig()->getNode('default/goodahead_etm/adminhtml/grid/exclude_types')->asArray());
+    }
+
 }
