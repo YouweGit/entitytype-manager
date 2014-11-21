@@ -158,11 +158,12 @@ class Goodahead_Etm_Adminhtml_Etm_EntityController
         }
         if ($data) {
             $entityType = $this->_initEntityType();
-            $storeId = $this->getRequest()->getPost('store_id', 0);
+            $storeId = $this->getRequest()->getParam('store_id', 0);
             if ($storeId) {
                 $redirectParams['store'] = $storeId;
             }
             $entity = $this->_initEntity($storeId);
+
 
             $entity->addData($data);
             $entity->setStoreId($storeId);
