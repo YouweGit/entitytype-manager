@@ -225,7 +225,7 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
             $this->_entityTypes[$entityType->getId()] = $entityType;
         }
 
-        return $this->_entityTypes[$entityType->getId()];
+        return $this->_entityTypes[$entityTypeId];
     }
 
     /**
