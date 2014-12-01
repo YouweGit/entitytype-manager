@@ -91,16 +91,6 @@ class Goodahead_Etm_Helper_Image extends Mage_Core_Helper_Abstract
     protected $_placeholder;
 
     /**
-     * Module constract
-     *
-     * @param $args
-     */
-    public function __construct()
-    {
-        $this->_model = Mage::getModel('goodahead_etm/entity_image');
-    }
-
-    /**
      * Reset all previous data
      *
      * @return Goodahead_Etm_Helper_Image
@@ -116,6 +106,7 @@ class Goodahead_Etm_Helper_Image extends Mage_Core_Helper_Abstract
         $this->_watermarkImageOpacity = null;
         $this->_entity = null;
         $this->_imageFile = null;
+        $this->_model = null;
         return $this;
     }
 
@@ -127,10 +118,16 @@ class Goodahead_Etm_Helper_Image extends Mage_Core_Helper_Abstract
      * @param mixed $imageFile
      * @return Goodahead_Etm_Helper_Image
      */
-    public function init(Varien_Object $entity, $attributeName, $imageFile=null)
+    public function init(Varien_Object $entity, $attributeName, $imageFile=null, $imageModel = null)
     {
         $this->_reset();
         $this->setEntity($entity);
+        if (is_object($imageModel)) {
+            $this->setModel($imageModel);
+        } else {
+            $this->setModel(Mage::getModel('goodahead_etm/entity_image'));
+        }
+
         $this->setAttribute($attributeName);
         $this->getModel()->setDestinationSubdir($this->getEntitySubdirPath($attributeName));
 
