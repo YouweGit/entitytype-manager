@@ -35,6 +35,23 @@
  */
 class Goodahead_Etm_Model_Entity_Type extends Mage_Eav_Model_Entity_Type
 {
+
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'goodahead_etm';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getObject() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'entity_type';
+
     protected $_defaultAttribute = null;
 
     protected function _construct()

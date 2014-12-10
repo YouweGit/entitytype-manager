@@ -152,20 +152,12 @@ class Goodahead_Etm_Adminhtml_Etm_EntityTypeController
                 $hasError = false;
                 $entityTypeModel->load($entityTypeId);
 
-                $postFields = array(
-//                    'entity_type_code',
-                    'entity_type_name',
-                    'entity_type_root_template',
-                    'entity_type_layout_xml',
-                    'entity_type_content',
-                    'default_attribute_id'
-                );
+                $postFields = Mage::helper('goodahead_etm')->getEntityTypeEditFields();
+
                 $postData = array();
                 foreach ($postFields as $_field) {
                     $value = $this->getRequest()->getPost($_field, null);
-                    if (isset($value)) {
-                        $postData[$_field] = $value;
-                    }
+                    $postData[$_field] = $value;
                 }
                 if (!$entityTypeModel->getId()) {
                     $entityTypeCode = $this->getRequest()->getPost('entity_type_code', null);
@@ -194,6 +186,13 @@ class Goodahead_Etm_Adminhtml_Etm_EntityTypeController
                     );
                     $entityTypeId = $setup->getEntityType($entityTypeCode, 'entity_type_id');
                     $entityTypeModel->load($entityTypeId);
+                    Mage::dispatchEvent(
+                        'goodahead_etm_entity_type_create_after',
+                        array(
+                            'entity_type'   => $entityTypeModel,
+                            'setup'         => $setup
+                        )
+                    );
                     Mage::app()->cleanCache(array(Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS));
                 } else {
                     $entityTypeModel->addData($postData);

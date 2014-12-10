@@ -118,13 +118,14 @@ class Goodahead_Etm_Adminhtml_Etm_EntityController
         $entityId = $this->getRequest()->getParam('entity_id', null);
 
         $entityType = $this->_initEntityType();
+        $storeId = $this->getRequest()->getParam('store', 0);
+        $entity = $this->_initEntity($storeId);
+
         $this->_initAction($this->__(
             $entityId ? 'Edit %s' : 'Create %s',
             $this->getEtmHelper()->escapeHtml($entityType->getEntityTypeName())
         ));
 
-        $storeId = $this->getRequest()->getParam('store', 0);
-        $entity = $this->_initEntity($storeId);
         if (!$entity->getId()) {
             $this->getLayout()->getBlock('content')->unsetChild('store_switcher');
         }
@@ -157,11 +158,12 @@ class Goodahead_Etm_Adminhtml_Etm_EntityController
         }
         if ($data) {
             $entityType = $this->_initEntityType();
-            $storeId = $this->getRequest()->getPost('store_id', 0);
+            $storeId = $this->getRequest()->getParam('store_id', 0);
             if ($storeId) {
                 $redirectParams['store'] = $storeId;
             }
             $entity = $this->_initEntity($storeId);
+
 
             $entity->addData($data);
             $entity->setStoreId($storeId);

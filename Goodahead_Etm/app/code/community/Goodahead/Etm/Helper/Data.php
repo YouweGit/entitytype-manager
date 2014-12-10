@@ -152,6 +152,25 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get path to image folder for given entity
+     *
+     * @param Goodahead_Etm_Model_Entity $object
+     * @param string $attributeCode
+     * @return string
+     */
+    public function getImageFolderPath(Goodahead_Etm_Model_Entity $object, $attributeCode)
+    {
+        $path = Mage::getBaseDir('media') .
+            DS . 'goodahead' .
+            DS . 'etm' .
+            DS . $object->getEntityTypeInstance()->getEntityTypeCode() .
+            DS . $attributeCode .
+            DS
+        ;
+        return $path;
+    }
+
+    /**
      * @param int $entityTypeId
      * @return string|null
      */
@@ -206,7 +225,7 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
             $this->_entityTypes[$entityType->getId()] = $entityType;
         }
 
-        return $this->_entityTypes[$entityType->getId()];
+        return $this->_entityTypes[$entityTypeId];
     }
 
     /**
@@ -297,6 +316,26 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
             $options[$valueArray['value']] = $valueArray['label'];
         }
         return $options;
+    }
+
+    /**
+     * Get the fields for entity type entity edit form
+     *
+     * @return array
+     */
+    public function getEntityTypeEditFields()
+    {
+        return array_keys(Mage::getConfig()->getNode('default/goodahead_etm/entity_type_fields')->asArray());
+    }
+
+    /**
+     * Get the field types that shouldn't be displayed on grid
+     *
+     * @return array
+     */
+    public function getGridExcludeTypes()
+    {
+        return array_keys(Mage::getConfig()->getNode('default/goodahead_etm/adminhtml/grid/exclude_types')->asArray());
     }
 
 }

@@ -389,7 +389,7 @@ class Goodahead_Etm_Model_Resource_Entity_Setup
 
     public function updateEntityTypeExtra($code, $field, $value=null)
     {
-        $this->updateTableRow('goodahead_etm/etm_entity_type',
+        $this->updateTableRow('goodahead_etm/eav_entity_type',
             'entity_type_id', $this->getEntityTypeId($code),
             $field, $value
         );

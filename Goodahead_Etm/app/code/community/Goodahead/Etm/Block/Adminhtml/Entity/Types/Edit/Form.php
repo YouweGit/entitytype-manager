@@ -155,6 +155,8 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Types_Edit_Form
             $form->getElement('variables')->setValue(Zend_Json::encode(array()));
         }
 
+        Mage::dispatchEvent('goodahead_entity_type_prepare_form_after', array('form' => $form, 'entity_type' => $entityType));
+
         $this->setForm($form);
         return parent::_prepareForm();
     }

@@ -26,28 +26,18 @@
  * @copyright  Copyright (c) 2014 Goodahead Ltd. (http://www.goodahead.com)
  * @license    http://www.gnu.org/licenses/lgpl-3.0-standalone.html GNU Lesser General Public License
  */
-
-/**
- * Class Goodahead_Etm_Block_Adminhtml_Entity_Edit_Form
- *
- * Entity edit form
- */
-
-class Goodahead_Etm_Block_Adminhtml_Entity_Edit_Form
-    extends Mage_Adminhtml_Block_Widget_Form
+class Goodahead_Etm_Model_Entity_Attribute_Frontend_Image
+    extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
 {
-    protected function _prepareForm()
+
+    public function getUrl($object)
     {
-        $form = new Varien_Data_Form(
-            array(
-                'id'            => 'edit_form',
-                'action'        => $this->getUrl('*/*/save'),
-                'method'        => 'post',
-                'enctype'       => 'multipart/form-data',
-                'use_container' => true
-        ));
-        $form->setUseContainer(true);
-        $this->setForm($form);
-        return parent::_prepareForm();
+        $url = false;
+        if ($image = $object->getData($this->getAttribute()->getAttributeCode())) {
+            $url = $path = Mage::helper('goodahead_etm')
+                    ->getImageFolderPath($object, $this->getAttribute()->getAttributeCode()) . $image;
+        }
+        return $url;
     }
+
 }

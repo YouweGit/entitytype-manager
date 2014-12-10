@@ -37,6 +37,22 @@ abstract class Goodahead_Etm_Model_Entity extends Mage_Core_Model_Abstract
     protected $_entityTypeCode;
 
     /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'goodahead_etm_entity';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getObject() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'entity';
+
+    /**
      * Attribute default values
      *
      * This array contain default values for attributes which have there values

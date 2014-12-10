@@ -30,6 +30,8 @@
 class Goodahead_Etm_Block_Adminhtml_Entity_Grid
     extends Mage_Adminhtml_Block_Widget_Grid
 {
+
+    protected $_excludeTypeList = array();
     /**
      * @return Goodahead_Etm_Helper_Data
      */
@@ -46,6 +48,8 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Grid
 
         $this->setDefaultSort('main_table.entity_id');
         $this->setDefaultDir('DESC');
+
+        $this->_excludeTypeList = Mage::helper('goodahead_etm')->getGridExcludeTypes();
     }
 
     protected function _getStore()
@@ -86,7 +90,7 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Grid
 
         /** @var $attribute Goodahead_Etm_Model_Entity_Attribute */
         foreach($visibleAttr as $attributeCode => $attribute) {
-            if ($attribute->getFrontendInput() == 'image') {
+            if (in_array($attribute->getFrontendInput(), $this->_excludeTypeList)) {
                 continue;
             }
 

@@ -234,4 +234,25 @@
             </catalog_helper_output_construct>
         </events>
     </frontend>
+    <default>
+        <goodahead_etm>
+            <entity_type_fields>
+                <entity_type_name/>
+                <entity_type_root_template/>
+                <entity_type_layout_xml/>
+                <entity_type_content/>
+                <default_attribute_id/>
+            </entity_type_fields>
+            <adminhtml>
+                <grid>
+                    <exclude_types>
+                        <image/>
+                        <media_image/>
+                        <textarea/>
+                    </exclude_types>
+                </grid>
+            </adminhtml>
+        </goodahead_etm>
+
+    </default>
 </config>
