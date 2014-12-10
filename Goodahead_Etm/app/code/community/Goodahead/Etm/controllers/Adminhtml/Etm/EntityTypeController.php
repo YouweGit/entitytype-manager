@@ -157,9 +157,7 @@ class Goodahead_Etm_Adminhtml_Etm_EntityTypeController
                 $postData = array();
                 foreach ($postFields as $_field) {
                     $value = $this->getRequest()->getPost($_field, null);
-                    if (isset($value)) {
-                        $postData[$_field] = $value;
-                    }
+                    $postData[$_field] = $value;
                 }
                 if (!$entityTypeModel->getId()) {
                     $entityTypeCode = $this->getRequest()->getPost('entity_type_code', null);
