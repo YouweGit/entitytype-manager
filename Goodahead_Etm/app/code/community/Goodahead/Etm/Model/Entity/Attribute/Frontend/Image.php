@@ -35,7 +35,7 @@ class Goodahead_Etm_Model_Entity_Attribute_Frontend_Image
         $url = false;
         if ($image = $object->getData($this->getAttribute()->getAttributeCode())) {
             $url = $path = Mage::helper('goodahead_etm')
-                    ->getImageFolderPath($object, $this->getAttribute()->getAttributeCode()) . $image;
+                    ->getFileFolderPath($object, $this->getAttribute()->getAttributeCode()) . $image;
         }
         return $url;
     }

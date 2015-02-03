@@ -158,7 +158,7 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $attributeCode
      * @return string
      */
-    public function getImageFolderPath(Goodahead_Etm_Model_Entity $object, $attributeCode)
+    public function getFileFolderPath(Goodahead_Etm_Model_Entity $object, $attributeCode)
     {
         $path = Mage::getBaseDir('media') .
             DS . 'goodahead' .
