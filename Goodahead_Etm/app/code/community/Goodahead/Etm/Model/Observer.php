@@ -174,4 +174,92 @@ class Goodahead_Etm_Model_Observer {
         Goodahead_Etm_Processor_Autoload::register();
     }
 
+    /**
+     * Save linked types data
+     *
+     * @event goodahead_etm_save_before
+     * @param Varien_Event_Observer $observer
+     *
+     * @return $this
+     */
+    public function onTypeBeforeSave(Varien_Event_Observer $observer)
+    {
+        /** @var Goodahead_Etm_Model_Entity_Type $entityType */
+        $entityType = $observer->getEntityType();
+        $linkedEntities = $entityType->getData('linked_types');
+
+        if (is_array($linkedEntities)) {
+            $entityType->setData('linked_types', implode(',', $linkedEntities));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Save linking data after model save
+     *
+     * @event goodahead_etm_entity_save_after
+     * @param Varien_Event_Observer $observer
+     *
+     * @return $this
+     */
+    public function onEntitySaveAfter(Varien_Event_Observer $observer)
+    {
+        $data = $observer->getEntity()->getData('links');
+        if ($data) {
+            $linkingData = array();
+            foreach ($data as $typeId => $linkString) {
+                $linkArray = Mage::helper('adminhtml/js')->decodeGridSerializedInput($linkString);
+
+                $linkData = array();
+                if (!empty($linkArray)) {
+                    foreach ($linkArray as $linked => $link) {
+                        $linkItem = array();
+                        $linkItem['entity_type_id'] = $observer->getEntity()->getEntityTypeId();
+                        $linkItem['entity_id'] = $observer->getEntity()->getId();
+                        $linkItem['linked_entity_type_id'] = $typeId;
+                        $linkItem['linked_entity_id'] = $linked;
+                        $linkItem['sort_order'] = $link['sort_order'];
+                        $linkData[] = $linkItem;
+                        unset($linkItem);
+                        $linkItem = array();
+                        $linkItem['entity_type_id'] = $typeId;
+                        $linkItem['entity_id'] = $linked;
+                        $linkItem['linked_entity_type_id'] = $observer->getEntity()->getEntityTypeId();
+                        $linkItem['linked_entity_id'] = $observer->getEntity()->getId();
+                        $linkItem['sort_order'] = $link['sort_order'];
+                        $linkData[] = $linkItem;
+                    }
+                }
+
+                $linkingData[$typeId] = $linkData;
+            }
+            Mage::getResourceModel('goodahead_etm/link')->saveEntityLinks($observer->getEntity(), $linkingData);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Parse linkable entities data from model
+     *
+     * @event goodahead_etm_load_after
+     * @param Varien_Event_Observer $observer
+     *
+     * @return $this
+     */
+    public function onTypeAfterLoad(Varien_Event_Observer $observer)
+    {
+
+        /** @var Goodahead_Etm_Model_Entity_Type $entityType */
+        $entityType = $observer->getEntityType();
+
+        $linkedEntities = $entityType->getData('linked_types');
+        if ($linkedEntities) {
+            $entityType->setData('linked_types', explode(',', $linkedEntities));
+        }
+
+        return $this;
+    }
+
 }

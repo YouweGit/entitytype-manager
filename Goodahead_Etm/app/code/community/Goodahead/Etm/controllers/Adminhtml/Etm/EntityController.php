@@ -284,6 +284,62 @@ class Goodahead_Etm_Adminhtml_Etm_EntityController
     }
 
     /**
+     * Render linking entitues grid
+     */
+    public function linkAction()
+    {
+        try {
+            $this->_initEntityType();
+            $storeId = $this->getRequest()->getParam('store', 0);
+            /** @var Goodahead_Etm_Model_Entity  $entityObject */
+            $this->_initEntity($storeId);
+            $typeId = (int)$this->getRequest()->getParam('linked_type_id');
+            if (!$typeId) {
+                throw new Exception('No linked entity type given');
+            }
+            $hiddenName = sprintf('links[%s]', $typeId);
+            $reloadName = 'linked_entity_' . $typeId;
+            $this->loadLayout();
+            $this->getLayout()->getBlock('related_grid_serializer')
+                ->initSerializerBlock(
+                    'entity.edit.tab.link',
+                    'getSelectedEntities',
+                    $hiddenName,
+                    $reloadName);
+            $this->getLayout()->getBlock('related_grid_serializer')
+                ->addColumnInputName('sort_order');
+            $this->getLayout()->getBlock('entity.edit.tab.link')
+                ->setLinkedEntities($this->getRequest()->getPost($reloadName, null));
+            $this->renderLayout();
+        } catch (Exception $e){
+            Mage::logException($e);
+        }
+    }
+
+    /**
+     * Get linked entities grid using ajax
+     */
+    public function linkGridAction()
+    {
+        try {
+            $this->_initEntityType();
+            $storeId = $this->getRequest()->getParam('store', 0);
+            $this->_initEntity($storeId);
+            $typeId = (int)$this->getRequest()->getParam('linked_type_id');
+            if (!$typeId) {
+                throw new Exception('No linked entity type given');
+            }
+            $reloadName = 'linked_entity_' . $typeId;
+            $this->loadLayout();
+            $this->getLayout()->getBlock('entity.edit.tab.link')
+                ->setLinkedEntities($this->getRequest()->getPost($reloadName, null));
+            $this->renderLayout();
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+    }
+
+    /**
      * ACL check
      *
      * @return bool

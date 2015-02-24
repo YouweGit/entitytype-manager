@@ -93,4 +93,17 @@
             <block type="adminhtml/template" name="goodahead_etm_entity_type_edit_js" template="goodahead/etm/catalog/product/attribute/js.phtml"></block>
         </reference>
     </adminhtml_catalog_product_attribute_edit>
+
+    <adminhtml_etm_entity_link>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="goodahead_etm/adminhtml_entity_edit_tab_link" name="entity.edit.tab.link"/>
+            <block type="adminhtml/widget_grid_serializer" name="related_grid_serializer" />
+        </block>
+    </adminhtml_etm_entity_link>
+
+    <adminhtml_etm_entity_linkgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="goodahead_etm/adminhtml_entity_edit_tab_link" name="entity.edit.tab.link"/>
+        </block>
+    </adminhtml_etm_entity_linkgrid>
 </layout>
