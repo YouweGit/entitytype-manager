@@ -31,7 +31,7 @@
 <config>
     <modules>
         <Goodahead_Etm>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
         </Goodahead_Etm>
     </modules>
     <global>
@@ -52,6 +52,9 @@
                     <eav_attribute>
                         <table>goodahead_etm_eav_attribute</table>
                     </eav_attribute>
+                    <entity_link>
+                        <table>goodahead_etm_entity_link</table>
+                    </entity_link>
                 </entities>
             </goodahead_etm_resource>
         </models>
@@ -101,6 +104,32 @@
                 </entity>
             </etm>
         </goodahead>
+        <events>
+            <goodahead_etm_save_before>
+                <observers>
+                    <goodahead_etm_type_before_save>
+                        <class>goodahead_etm/observer</class>
+                        <method>onTypeBeforeSave</method>
+                    </goodahead_etm_type_before_save>
+                </observers>
+            </goodahead_etm_save_before>
+            <goodahead_etm_entity_save_after>
+                <observers>
+                    <goodahead_etm_type_before_save>
+                        <class>goodahead_etm/observer</class>
+                        <method>onEntitySaveAfter</method>
+                    </goodahead_etm_type_before_save>
+                </observers>
+            </goodahead_etm_entity_save_after>
+            <goodahead_etm_load_after>
+                <observers>
+                    <goodahead_etm_type_load_after>
+                        <class>goodahead_etm/observer</class>
+                        <method>onTypeAfterLoad</method>
+                    </goodahead_etm_type_load_after>
+                </observers>
+            </goodahead_etm_load_after>
+        </events>
     </global>
     <admin>
         <routers>

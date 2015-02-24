@@ -155,6 +155,16 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Types_Edit_Form
             $form->getElement('variables')->setValue(Zend_Json::encode(array()));
         }
 
+        $form->getElement('entity_type_data')
+            ->addField('linked_types', 'multiselect', array(
+                'index'     => 'linked_types',
+                'label'     => Mage::helper('youwe_etm')->__('Linked entities'),
+                'name'      => 'linked_types',
+                'values'    => Mage::helper('youwe_etm')->getEntityTypesArray($entityType->getId()),
+            ));
+
+        $form->getElement('linked_types')->setValue($entityType->getData('linked_types'));
+
         Mage::dispatchEvent('goodahead_entity_type_prepare_form_after', array('form' => $form, 'entity_type' => $entityType));
 
         $this->setForm($form);
