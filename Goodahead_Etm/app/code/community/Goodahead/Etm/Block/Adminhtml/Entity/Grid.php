@@ -116,7 +116,7 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Grid
                 $attributeParams['type']    = 'options';
                 $attributeParams['options'] = $helper->getOptionsHash($attribute->getSource(), false);
                 $attributeParams['filter']  = 'goodahead_etm/adminhtml_entity_grid_filter_multiselect';
-                $attributeParams['renderer']  = 'goodahead_etm/adminhtml_entity_grid_renderer_options';
+                $attributeParams['renderer']  = 'goodahead_etm/adminhtml_entity_grid_renderer_multiselect';
             }
 
             //select
