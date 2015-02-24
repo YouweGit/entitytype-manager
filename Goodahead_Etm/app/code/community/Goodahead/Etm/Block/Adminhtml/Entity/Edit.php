@@ -64,12 +64,6 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Edit
         );
 
         $entityId = $this->getRequest()->getParam('entity_id');
-        if ($entityId) {
-            $this->_addButton('duplicate', array(
-                'label'     => Mage::helper('catalog')->__('Duplicate'),
-                'onclick'   => 'setLocation(\'' . $this->_getDuplicateUrl($entityId, $entityTypeId) . '\')',
-            ), 0);
-        }
 
         $this->_formScripts[] = "
             function saveAndContinueEdit(){

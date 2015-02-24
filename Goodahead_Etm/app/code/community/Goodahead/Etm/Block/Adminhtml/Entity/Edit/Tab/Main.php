@@ -97,11 +97,11 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Edit_Tab_Main
     protected function _getAdditionalElementTypes()
     {
         return array(
-            'file'      => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_file'),
-//            'image'     => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_image'),
+            'file'      => Mage::getConfig()->getBlockClassName('goodahead_etm/adminhtml_form_element_file'),
             'image'     => Mage::getConfig()->getBlockClassName('goodahead_etm/adminhtml_form_renderer_fieldset_element_image'),
             'boolean'   => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_boolean'),
             'price'     => Mage::getConfig()->getBlockClassName('goodahead_etm/adminhtml_form_renderer_fieldset_element_price'),
+            'textarea'  => Mage::getConfig()->getBlockClassName('goodahead_etm/adminhtml_form_renderer_fieldset_element_wysiwyg')
         );
     }
 

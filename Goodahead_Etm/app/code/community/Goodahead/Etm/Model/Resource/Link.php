@@ -53,7 +53,7 @@ class Goodahead_Etm_Model_Resource_Link extends Mage_Core_Model_Resource_Db_Abst
         foreach ($linkData as $linkTypeId => $linkDetails) {
             $select = $this->_getWriteAdapter()->select()
                 ->from(
-                    array('main' => $this->getTable('youwe_etm/entity_link')),
+                    array('main' => $this->getTable('goodahead_etm/entity_link')),
                     '')->where('main.entity_type_id = ?', $entity->getEntityTypeId())
                 ->where('main.entity_id = ?', $entity->getId())
                 ->where('main.linked_entity_type_id = ?', $linkTypeId);
@@ -64,7 +64,7 @@ class Goodahead_Etm_Model_Resource_Link extends Mage_Core_Model_Resource_Db_Abst
 
             $select = $this->_getWriteAdapter()->select()
                 ->from(
-                    array('main' => $this->getTable('youwe_etm/entity_link')),
+                    array('main' => $this->getTable('goodahead_etm/entity_link')),
                     '')->where('main.entity_type_id = ?', $linkTypeId)
                 ->where('main.linked_entity_id = ?', $entity->getId())
                 ->where('main.linked_entity_type_id = ?', $entity->getEntityTypeId());
@@ -77,7 +77,33 @@ class Goodahead_Etm_Model_Resource_Link extends Mage_Core_Model_Resource_Db_Abst
                 continue;
             }
 
-            $this->_getWriteAdapter()->insertMultiple($this->getTable('youwe_etm/entity_link'), $linkDetails);
+            $this->_getWriteAdapter()->insertMultiple($this->getTable('goodahead_etm/entity_link'), $linkDetails);
         }
+    }
+
+    /**
+     * Add link data for given entity, created for backend edit page
+     *
+     * @param Goodahead_Etm_Model_Entity $currentEntity
+     * @param Goodahead_Etm_Model_Resource_Entity_Collection $collection
+     * @return Goodahead_Etm_Model_Resource_Entity_Collection
+     */
+    public function addLinkDataToCollection($currentEntity, $collection)
+    {
+        $joinCondition = "e.entity_id = link.entity_id AND e.entity_type_id = link.entity_type_id AND " .
+            "link.linked_entity_type_id = {$currentEntity->getEntityTypeId()}";
+        if ($currentEntity->getId()) {
+            $joinCondition .= " AND link.linked_entity_id = {$currentEntity->getId()}";
+        } else {
+            //mock condition to avoid multiple rows selected
+            $joinCondition .= " AND link.linked_entity_id IS NULL";
+        }
+        $collection->getSelect()->joinLeft(
+            array('link' => $this->getMainTable()),
+            $joinCondition,
+            array('linked' => 'linked_entity_id')
+        );
+
+        return $collection;
     }
 }

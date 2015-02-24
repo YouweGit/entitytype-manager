@@ -187,7 +187,7 @@ class Goodahead_Etm_Model_Observer {
         /** @var Goodahead_Etm_Model_Entity_Type $entityType */
         $entityType = $observer->getEntityType();
         $linkedEntities = $entityType->getData('linked_types');
-        Mage::log($linkedEntities);
+
         if (is_array($linkedEntities)) {
             $entityType->setData('linked_types', implode(',', $linkedEntities));
         }
