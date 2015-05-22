@@ -34,11 +34,11 @@
             <title>Entity Type Manager</title>
             <sort_order>100</sort_order>
             <children>
-                <manage_entityTypes translate="title">
+                <manage_entity_types translate="title">
                     <title>Manage Entity Types</title>
                     <action>adminhtml/etm_entityType</action>
                     <sort_order>10</sort_order>
-                </manage_entityTypes>
+                </manage_entity_types>
                 <manage_attributes translate="title" module="catalog" update="goodahead_etm/data/updateMenu">
                     <title>Manage Attributes</title>
                     <sort_order>20</sort_order>
@@ -88,7 +88,7 @@
                                     </delete>
                                 </children>
                             </manage_entities>
-                            <manage_entityTypes translate="title">
+                            <manage_entity_types translate="title">
                                 <title>Manage Entity Types</title>
                                 <sort_order>0</sort_order>
                                 <children>
@@ -101,7 +101,7 @@
                                         <sort_order>10</sort_order>
                                     </delete>
                                 </children>
-                            </manage_entityTypes>
+                            </manage_entity_types>
                         </children>
                     </goodahead_etm>
                     <system>

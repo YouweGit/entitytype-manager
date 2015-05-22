@@ -29,7 +29,12 @@
 
 class Goodahead_Etm_Model_Observer {
 
-    public function renderMenu($observer)
+    /**
+     * Render submenu items with new entity types
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function renderMenu(Varien_Event_Observer $observer)
     {
         /** @var $menu Varien_Simplexml_Element */
         $menu = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
