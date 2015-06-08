@@ -35,7 +35,8 @@ class Goodahead_Etm_IndexController extends Mage_Core_Controller_Front_Action
         $helper = Mage::helper('goodahead_etm');
 
         try {
-            $entity = $helper->getEntityByEntityId($this->getRequest()->getParam('entity_id'));
+            $storeId = Mage::app()->getStore()->getId();
+            $entity = $helper->getEntityByEntityId($this->getRequest()->getParam('entity_id'), $storeId);
 
             if ($entity->getId()) {
                 $entityType = $entity->getEntityTypeInstance();
