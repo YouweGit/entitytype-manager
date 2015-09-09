@@ -40,10 +40,8 @@ class Goodahead_Etm_Adminhtml_Etm_EntityController
 
             $this->_initAction($this->__('Manage Entities'));
             $this->renderLayout();
-        // TODO: Catch only our exception
-        } catch (Exception $e) {
+        } catch (Goodahead_Etm_Exception $e) {
             Mage::logException($e);
-            Mage::throwException($e);
             $this->_forward('no_route');
         }
     }
@@ -117,9 +115,17 @@ class Goodahead_Etm_Adminhtml_Etm_EntityController
     {
         $entityId = $this->getRequest()->getParam('entity_id', null);
 
-        $entityType = $this->_initEntityType();
-        $storeId = $this->getRequest()->getParam('store', 0);
-        $entity = $this->_initEntity($storeId);
+        try {
+            $entityType = $this->_initEntityType();
+            $storeId = $this->getRequest()->getParam('store', 0);
+            $entity = $this->_initEntity($storeId);
+        } catch (Goodahead_Etm_Exception $e) {
+            $this->_getSession()->addError($e->getMessage());
+            Mage::unregister('etm_entity_type');
+            Mage::logException($e);
+            $this->_forward('index');
+            return;
+        }
 
         $this->_initAction($this->__(
             $entityId ? 'Edit %s' : 'Create %s',
