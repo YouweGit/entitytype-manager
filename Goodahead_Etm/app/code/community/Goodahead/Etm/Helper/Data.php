@@ -338,14 +338,4 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
         return array_keys(Mage::getConfig()->getNode('default/goodahead_etm/adminhtml/grid/exclude_types')->asArray());
     }
 
-    /**
-     * Apply filters to category collection
-     *
-     * @param Mage_Catalog_Model_Resource_Category_Collection $collection
-     */
-    public function applyCategoryFilters($collection)
-    {
-        $collection->addFieldToFilter('level', array('eq' => 2));
-    }
-
 }
