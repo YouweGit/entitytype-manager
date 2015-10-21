@@ -105,7 +105,7 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Edit_Tab_Link
         Mage::getResourceModel('goodahead_etm/link')->addLinkDataToCollection($currentEntity, $collection);
 
         if ($typeModel->getEntityTypeCode() == Mage_Catalog_Model_Category::ENTITY) {
-            Mage::helper('goodahead_etm')->applyCategoryFilters($collection);
+            Mage::dispatchEvent('goodahead_etm_admin_entity_tab_link_category', array('category_collection' => $collection));
         }
 
         $this->setCollection($collection);
