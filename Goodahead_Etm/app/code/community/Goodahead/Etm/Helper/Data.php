@@ -68,6 +68,7 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
                         ? $entityType->getEntityTypeName()
                         : $entityType->getEntityTypeCode());
                 $menuItem->addChild('sort_order', $index);
+                $menuItem->addChild('resource', (string)$node->child_acl_resource);
                 $menuItem->addChild('action', sprintf((string)$node->base_link, $entityType->getId()));
             }
         } else {
