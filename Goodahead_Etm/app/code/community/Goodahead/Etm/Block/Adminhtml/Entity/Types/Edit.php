@@ -91,15 +91,16 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Types_Edit
         switch ($action) {
             case 'edit':
             case 'save':
-                return Mage::getSingleton('admin/session')->isAllowed('goodahead_etm/manage_entityTypes/save');
+                $permit =  Mage::getSingleton('admin/session')->isAllowed('goodahead_etm/manage_entity_types/save');
                 break;
             case 'delete':
-                return Mage::getSingleton('admin/session')->isAllowed('goodahead_etm/manage_entityTypes/delete');
+                $permit = Mage::getSingleton('admin/session')->isAllowed('goodahead_etm/manage_entity_types/delete');
                 break;
             case 'index':
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('goodahead_etm/manage_entityTypes');
-                break;
+                $permit = Mage::getSingleton('admin/session')->isAllowed('goodahead_etm/manage_entity_types');
         }
+
+        return $permit;
     }
 }
