@@ -2,8 +2,8 @@
 /**
  * Image model, adjusted for dynamic entities
  *
- * @category Youwe
- * @package  Youwe_Etm
+ * @category Goodahead
+ * @package  Goodahead_Etm
  * @author Sergey Gozhedrianov <s.gozhedrianov@youwe.nl>
  */
 class Goodahead_Etm_Model_Entity_Image extends Mage_Catalog_Model_Product_Image

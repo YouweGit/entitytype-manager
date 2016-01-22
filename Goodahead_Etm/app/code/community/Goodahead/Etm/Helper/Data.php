@@ -78,6 +78,29 @@ class Goodahead_Etm_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get linked entity Types
+     *
+     * @param int|null $exclude
+     * @return array
+     */
+    public function getEntityTypesArray($exclude = null)
+    {
+        $collection = $this->_getEntityTypesCollection();
+        $result = array();
+        foreach ($collection as $type) {
+            if ($exclude == $type->getId()) {
+                continue;
+            }
+            $result[] = array(
+                'label' => ucwords(str_replace('_', ' ', $type->getEntityTypeName())),
+                'value' => $type->getId()
+            );
+        }
+
+        return $result;
+    }
+
+    /**
      * Returns associative array of visible attributes for Entity Type
      *
      * @param  int|Goodahead_Etm_Model_Entity_Type $entityType

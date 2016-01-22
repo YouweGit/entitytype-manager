@@ -158,9 +158,9 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Types_Edit_Form
         $form->getElement('entity_type_data')
             ->addField('linked_types', 'multiselect', array(
                 'index'     => 'linked_types',
-                'label'     => Mage::helper('youwe_etm')->__('Linked entities'),
+                'label'     => Mage::helper('goodahead_etm')->__('Linked entities'),
                 'name'      => 'linked_types',
-                'values'    => Mage::helper('youwe_etm')->getEntityTypesArray($entityType->getId()),
+                'values'    => Mage::helper('goodahead_etm')->getEntityTypesArray($entityType->getId()),
             ));
 
         $form->getElement('linked_types')->setValue($entityType->getData('linked_types'));
