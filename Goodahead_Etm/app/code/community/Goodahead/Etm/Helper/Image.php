@@ -2,8 +2,8 @@
 /**
  * Helper to handel image processing procedure, similar to catalog Product
  *
- * @category Youwe
- * @package  Youwe_Etm
+ * @category Goodaheid
+ * @package  Goodahead_Etm
  * @author Sergey Gozhedrianov <s.gozhedrianov@youwe.nl>
  */
 class Goodahead_Etm_Helper_Image extends Mage_Core_Helper_Abstract
