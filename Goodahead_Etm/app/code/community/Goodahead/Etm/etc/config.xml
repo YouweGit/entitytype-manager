@@ -271,6 +271,7 @@
                 <entity_type_layout_xml/>
                 <entity_type_content/>
                 <default_attribute_id/>
+                <linked_types/>
             </entity_type_fields>
             <adminhtml>
                 <grid>
