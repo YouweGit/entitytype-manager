@@ -39,6 +39,11 @@ class Goodahead_Etm_Block_Adminhtml_Entity_Edit_Tabs extends Mage_Adminhtml_Bloc
         if (!is_object($currentType)) {
             throw new Exception('Entity type is not loaded');
         }
+
+        Mage::dispatchEvent('goodahead_etm_entity_prepare_tab_after', array(
+            'container' => $this
+        ));
+
         $linkedTypes = $currentType->getLinkedTypes();
         if (!is_array($linkedTypes)) {
             return $this;

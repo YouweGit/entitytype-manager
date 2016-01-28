@@ -224,6 +224,14 @@
                     </add_handler_to_catalog_output_helper>
                 </observers>
             </catalog_helper_output_construct>
+            <controller_action_layout_load_before>
+                <observers>
+                    <goodahead_etm_layout_load_before>
+                        <class>goodahead_etm/observer</class>
+                        <method>onAdminLayoutLoadBefore</method>
+                    </goodahead_etm_layout_load_before>
+                </observers>
+            </controller_action_layout_load_before>
         </events>
     </adminhtml>
     <frontend>
