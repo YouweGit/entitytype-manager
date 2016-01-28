@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Goodahead_Etm extension
  *
@@ -26,8 +27,8 @@
  * @copyright  Copyright (c) 2014 Goodahead Ltd. (http://www.goodahead.com)
  * @license    http://www.gnu.org/licenses/lgpl-3.0-standalone.html GNU Lesser General Public License
  */
-
-class Goodahead_Etm_Model_Observer {
+class Goodahead_Etm_Model_Observer
+{
 
     /**
      * Render submenu items with new entity types
@@ -88,8 +89,8 @@ class Goodahead_Etm_Model_Observer {
 
         if ($attribute->getData('goodahead_etm_entity_type_id')) {
             $fieldset->addField('goodahead_etm_entity_type_default_value', $attribute->getFrontendInput(), array(
-                'name'   => 'goodahead_etm_entity_type_default_value',
-                'label'  => $_helper->__("Default Value for Custom Entity Type"),
+                'name' => 'goodahead_etm_entity_type_default_value',
+                'label' => $_helper->__("Default Value for Custom Entity Type"),
                 'values' => $attribute->getSource()->getAllOptions(true, true),
             ), 'goodahead_etm_entity_type_id');
         }
@@ -122,12 +123,15 @@ class Goodahead_Etm_Model_Observer {
             if ($attribute->hasData('goodahead_etm_entity_type_id')) {
                 if ($attribute->hasData('goodahead_etm_entity_type_default_value')) {
                     if ($attribute->getFrontendInput() == 'select') {
-                        $attribute->setData('default_value', $attribute->getData('goodahead_etm_entity_type_default_value'));
+                        $attribute->setData('default_value',
+                            $attribute->getData('goodahead_etm_entity_type_default_value'));
                     } elseif ($attribute->getFrontendInput() == 'multiselect') {
                         if (is_array($attribute->getData('goodahead_etm_entity_type_default_value'))) {
-                            $attribute->setData('default_value', implode(',', $attribute->getData('goodahead_etm_entity_type_default_value')));
+                            $attribute->setData('default_value',
+                                implode(',', $attribute->getData('goodahead_etm_entity_type_default_value')));
                         } else {
-                            $attribute->setData('default_value', $attribute->getData('goodahead_etm_entity_type_default_value'));
+                            $attribute->setData('default_value',
+                                $attribute->getData('goodahead_etm_entity_type_default_value'));
                         }
                     }
                 }
@@ -157,9 +161,11 @@ class Goodahead_Etm_Model_Observer {
         if ($attribute->hasData('goodahead_etm_entity_type_id')) {
             if ($attribute->hasData('default_value')) {
                 if ($attribute->getFrontendInput() == 'multiselect') {
-                    $attribute->setData('goodahead_etm_entity_type_default_value', explode(',', $attribute->getData('default_value')));
+                    $attribute->setData('goodahead_etm_entity_type_default_value',
+                        explode(',', $attribute->getData('default_value')));
                 } else {
-                    $attribute->setData('goodahead_etm_entity_type_default_value', $attribute->getData('default_value'));
+                    $attribute->setData('goodahead_etm_entity_type_default_value',
+                        $attribute->getData('default_value'));
                 }
             }
         }
@@ -183,6 +189,7 @@ class Goodahead_Etm_Model_Observer {
      * Save linked types data
      *
      * @event goodahead_etm_save_before
+     *
      * @param Varien_Event_Observer $observer
      *
      * @return $this
@@ -204,6 +211,7 @@ class Goodahead_Etm_Model_Observer {
      * Save linking data after model save
      *
      * @event goodahead_etm_entity_save_after
+     *
      * @param Varien_Event_Observer $observer
      *
      * @return $this
@@ -249,6 +257,7 @@ class Goodahead_Etm_Model_Observer {
      * Parse linkable entities data from model
      *
      * @event goodahead_etm_load_after
+     *
      * @param Varien_Event_Observer $observer
      *
      * @return $this
@@ -265,6 +274,31 @@ class Goodahead_Etm_Model_Observer {
         }
 
         return $this;
+    }
+
+    /**
+     * Add handle on load layout
+     *
+     * @event controller_action_layout_load_before
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function onAdminLayoutLoadBefore(Varien_Event_Observer $observer)
+    {
+        /* @var $layout Mage_Core_Model_Layout */
+        $layout = $observer->getLayout();
+
+        if (!($layout instanceof Mage_Core_Model_Layout)) {
+            return;
+        }
+
+        $etmEntityType = Mage::registry('etm_entity_type');
+        if ($etmEntityType && $etmEntityType->getId()) {
+            $entityTypeCode = $etmEntityType->getData('entity_type_code');
+            $layout->getUpdate()->addHandle('adminhtml_etm_' . $entityTypeCode . '_link');
+
+            return;
+        }
     }
 
 }
