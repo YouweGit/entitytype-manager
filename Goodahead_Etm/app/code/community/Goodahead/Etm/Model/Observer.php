@@ -29,6 +29,8 @@
  */
 class Goodahead_Etm_Model_Observer
 {
+    const FULL_ACTION_NAME_ADMINHTML_ETM_ENTITY_LINK = 'adminhtml_etm_entity_link';
+    const FULL_ACTION_NAME_ADMINHTML_ETM_ENTITY_LINKGRID = 'adminhtml_etm_entity_linkgrid';
 
     /**
      * Render submenu items with new entity types
@@ -285,20 +287,33 @@ class Goodahead_Etm_Model_Observer
      */
     public function onAdminLayoutLoadBefore(Varien_Event_Observer $observer)
     {
-        /* @var $layout Mage_Core_Model_Layout */
-        $layout = $observer->getLayout();
-
-        if (!($layout instanceof Mage_Core_Model_Layout)) {
+        $action = $observer->getData('action');
+        if (!($action instanceof Mage_Adminhtml_Controller_Action)) {
             return;
         }
 
-        $etmEntityType = Mage::registry('etm_entity_type');
-        if ($etmEntityType && $etmEntityType->getId()) {
-            $entityTypeCode = $etmEntityType->getData('entity_type_code');
-            $layout->getUpdate()->addHandle('adminhtml_etm_' . $entityTypeCode . '_link');
+        $fullActionName = strtolower($action->getFullActionName());
+        switch ($fullActionName) {
+            case self::FULL_ACTION_NAME_ADMINHTML_ETM_ENTITY_LINK:
+            case self::FULL_ACTION_NAME_ADMINHTML_ETM_ENTITY_LINKGRID:
 
-            return;
+                $typeId = (int)$action->getRequest()->getParam('linked_type_id');
+                if (!$typeId) {
+                    return;
+                }
+
+                $entityTypeCode = Mage::getModel('eav/entity_type')->load($typeId)->getEntityTypeCode();
+
+                /* @var $layout Mage_Core_Model_Layout */
+                $layout = $observer->getLayout();
+
+                if ($layout instanceof Mage_Core_Model_Layout) {
+                    $layout->getUpdate()->addHandle(strtolower($fullActionName . '_' . $entityTypeCode));
+                }
+
+                break;
         }
+
     }
 
 }
